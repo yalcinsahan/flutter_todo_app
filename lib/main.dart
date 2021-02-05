@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_todo_app/screens/AddScreen.dart';
 import 'package:flutter_todo_app/screens/HomeScreen.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 

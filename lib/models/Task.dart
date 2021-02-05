@@ -23,8 +23,8 @@ class Task {
     return Task(
       id: map['id'],
       title: map['title'],
-      description: map['description'],
-      isDone: map['isDone'],
+      description: map['body'],
+      isDone: map['isDone']
     );
   }
 

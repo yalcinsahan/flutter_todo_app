@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_todo_app/models/Task.dart';
 import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
 
 class TaskController extends GetxController {
   List<Task> tasks = []
@@ -17,11 +15,13 @@ class TaskController extends GetxController {
       .toList()
       .obs;
 
+  var taskLength = 0.obs;
+
   //yeni bir task eklemek için
   void addTask(title, description) {
     Task task = new Task(
         id: Uuid().v4(), title: title, description: description, isDone: false);
-    tasks = [...tasks, task];
+    tasks.add(task);
   }
 
   //listeden bir task'ı çıkarmak için
@@ -39,8 +39,13 @@ class TaskController extends GetxController {
 
   //bir task'ı tamamlandı olarak işaretlemek için
   void taskIsDone(id) {
-    tasks.indexWhere((task) =>
-        task.id == id ? task.isDone = !task.isDone : task.isDone = task.isDone);
+    //güncellecek elementin indeksi bulunuyor
+    int index = tasks.indexWhere((task) => task.id == id);
+
+    Task task = tasks[index];
+    task.isDone = !task.isDone;
+
+    tasks[index] = task;
 
     Get.snackbar(
       "Notification",
