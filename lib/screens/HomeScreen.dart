@@ -23,7 +23,18 @@ class HomePage extends StatelessWidget {
           separatorBuilder: (BuildContext context, int index) => Divider(
             color: Colors.black,
           ),
-          itemBuilder: (context, index) => buildListTile(index),
+          itemBuilder: (context, index) {
+            //kaydırılarak silinen itemler yapmak için
+            final removedTask = _controller.tasks[index];
+            return Dismissible(
+              key: Key(removedTask.id),
+              onDismissed: (direction) {
+                _controller.removeTask(_controller.tasks[index].id);
+              },
+              child: buildListTile(index),
+              background: Container(color: Colors.grey),
+            );
+          },
         ));
   }
 
@@ -32,10 +43,16 @@ class HomePage extends StatelessWidget {
       title: Text(
         _controller.tasks[index].title,
         style: TextStyle(
+          color: Colors.black,
+          fontStyle: FontStyle.normal,
           decoration: _controller.tasks[index].isDone
               ? TextDecoration.lineThrough
               : TextDecoration.none,
         ),
+      ),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Text(_controller.tasks[index].description),
       ),
       trailing: Row(mainAxisSize: MainAxisSize.min, children: [
         IconButton(

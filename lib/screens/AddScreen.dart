@@ -16,22 +16,24 @@ class _AddPageState extends State<AddPage> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: Center(
-            child: Column(
-              children: [
-                buildTitle(),
-                buildTitleInput(),
-                buildDescriptionInput(),
-                buildElevatedButton(),
-              ],
-            ),
-          ),
-        ));
+      child: Center(
+        child: ListView(
+          padding: EdgeInsets.all(20),
+          children: [
+            buildTitle(),
+            buildTitleInput(),
+            buildDescriptionInput(),
+            buildElevatedButton(),
+          ],
+        ),
+      ),
+    ));
   }
 
   ElevatedButton buildElevatedButton() {
@@ -45,7 +47,7 @@ class _AddPageState extends State<AddPage> {
       child: Text("Add Task"),
       style: ButtonStyle(
         padding: MaterialStateProperty.all(
-          EdgeInsets.symmetric(vertical: 10, horizontal: 80),
+          EdgeInsets.symmetric(vertical: 10),
         ),
         textStyle: MaterialStateProperty.all(
           TextStyle(fontSize: 20),
@@ -57,7 +59,7 @@ class _AddPageState extends State<AddPage> {
 
   Container buildTitleInput() {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: 10),
       child: TextField(
         controller: titleController,
         cursorColor: Colors.black,
@@ -76,7 +78,7 @@ class _AddPageState extends State<AddPage> {
 
   Container buildDescriptionInput() {
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 30),
+      margin: EdgeInsets.only(top: 10, bottom: 30),
       child: TextField(
         controller: descriptionController,
         maxLines: 8,
@@ -103,6 +105,7 @@ class _AddPageState extends State<AddPage> {
           color: Colors.black,
           fontSize: 26,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }
